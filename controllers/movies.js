@@ -47,51 +47,7 @@ module.exports.getMovies = (req, res, next) => {
     .then((movies) => res.send({ data: movies }))
     .catch(next);
 };
-/*
-module.exports.likeMovie = (req, res, next) => {
-  Movie.findByIdAndUpdate(
-    req.params.movieId,
-    { $addToSet: { likes: req.user._id } }, // добавить _id в массив, если его там нет
-    { new: true },
-  )
-    .then((movie) => {
-      if (!movie) {
-        throw new NotFoundError('Произошла ошибка: карточка не найдена');
-      } else {
-        res.send({ data: movie });
-      }
-    })
-    .catch((err) => {
-      if (err.name === 'ValidationError' || err.name === 'CastError') {
-        next(new BadRequestError('Переданы некорректные данные при постановке лайка'));
-      } else {
-        next(err);
-      }
-    });
-};
 
-module.exports.dislikeMovie = (req, res, next) => {
-  Movie.findByIdAndUpdate(
-    req.params.movieId,
-    { $pull: { likes: req.user._id } }, // убрать _id из массива
-    { new: true },
-  )
-    .then((movie) => {
-      if (!movie) {
-        throw new NotFoundError('Произошла ошибка: карточка не найдена');
-      } else {
-        res.send({ data: movie });
-      }
-    })
-    .catch((err) => {
-      if (err.name === 'ValidationError' || err.name === 'CastError') {
-        next(new BadRequestError('Переданы некорректные данные при удалении лайка'));
-      } else {
-        next(err);
-      }
-    });
-};
-*/
 module.exports.deleteMovie = (req, res, next) => {
   Movie.findById(req.params.movieId)
     .then((movie) => {

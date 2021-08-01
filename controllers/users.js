@@ -37,22 +37,6 @@ module.exports.createUser = (req, res, next) => {
       }
     });
 };
-/*
-module.exports.getUser = (req, res, next) => {
-  User.findById(req.params.userId)
-    .then((user) => {
-      if (!user) throw new NotFoundError('Произошла ошибка:пользователь с указанным _id не найден');
-      res.send({ data: user });
-    })
-    .catch((err) => {
-      if (err.name === 'CastError') {
-        next(new BadRequestError('Произошла ошибка: указан невалидный _id'));
-      } else {
-        next(err);
-      }
-    });
-};
-*/
 
 module.exports.getCurUser = (req, res, next) => {
   User.findById(req.user._id)
@@ -68,14 +52,6 @@ module.exports.getCurUser = (req, res, next) => {
       }
     });
 };
-
-/*
-module.exports.getUsers = (req, res, next) => {
-  User.find({})
-    .then((users) => res.send({ data: users }))
-    .catch(next);
-};
-*/
 
 module.exports.updateUserInfo = (req, res, next) => {
   User.findByIdAndUpdate(req.user._id, req.body,
@@ -95,27 +71,6 @@ module.exports.updateUserInfo = (req, res, next) => {
       }
     });
 };
-/*
-module.exports.updateUserAvatar = (req, res, next) => {
-  const { avatar } = req.body;
-  User.findByIdAndUpdate(req.user._id, { avatar },
-    {
-      new: true, // обработчик then получит на вход обновлённую запись
-      runValidators: true, // данные будут валидированы перед изменением
-      upsert: false, // если пользователь не найден, он будет создан
-    })
-    .then((user) => res.send({ data: user }))
-    .catch((err) => {
-      if (err.name === 'CastError') {
-        next(new NotFoundError('Произошла ошибка: пользователь с указанным _id не найден'));
-      } else if (err.name === 'ValidationError') {
-        next(new BadRequestError('Переданы некорректные данные при обновлении аватара'));
-      } else {
-        next(err);
-      }
-    });
-};
-*/
 
 module.exports.login = (req, res, next) => {
   const { email, password } = req.body;
@@ -124,7 +79,7 @@ module.exports.login = (req, res, next) => {
       const secret = NODE_ENV === 'production' ? JWT_SECRET : 'some-secret-key';
       const token = jwt.sign({ _id: user._id }, secret, { expiresIn: '7d' });
       res.cookie('jwt', token, {
-        maxAge: 3600000, httpOnly: true, sameSite: 'None', // add for https = secure: true,
+        maxAge: 3600000, httpOnly: true, sameSite: 'None', // add for https : secure: true,
       }).send({ message: 'Авторизация прошла успешно' });
     })
     .catch((err) => {

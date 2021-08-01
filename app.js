@@ -38,19 +38,6 @@ const options = {
 const app = express();
 app.use('*', cors(options));
 
-/*
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  const { method } = req;
-  const requestHeaders = req.headers['access-control-request-headers'];
-  if (method === 'OPTIONS') {
-    res.header('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE');
-    res.header('Access-Control-Allow-Headers', requestHeaders);
-  }
-  next();
-});
-*/
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true })); // для приёма веб-страниц внутри POST-запроса
 

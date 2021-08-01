@@ -9,13 +9,6 @@ const {
 
 // routerUser.get('/', getUsers);
 routerUser.get('/me', getCurUser);
-/*
-routerUser.get('/:userId', celebrate({
-  params: Joi.object().keys({
-    userId: Joi.string().hex().length(24).required(),
-  }),
-}), getUser);
-*/
 
 routerUser.patch('/me', celebrate({
   body: Joi.object().keys({
@@ -28,18 +21,5 @@ routerUser.patch('/me', celebrate({
     }, 'custom validation'),
   }),
 }), updateUserInfo);
-
-/*
-routerUser.patch('/me/avatar', celebrate({
-  body: Joi.object().keys({
-    avatar: Joi.string().required().custom((value, helpers) => {
-      if (!validator.isURL(value, { require_protocol: true })) {
-        return helpers.message('Введены невалидные данные');
-      }
-      return value;
-    }, 'custom validation'),
-  }),
-}), updateUserAvatar);
-*/
 
 module.exports = routerUser; // экспортировали роутер

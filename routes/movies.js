@@ -39,20 +39,6 @@ routerMovie.post('/', celebrate({
 
 routerMovie.get('/', getMovies);
 
-/*
-routerMovie.put('/:movieId/likes', celebrate({
-  params: Joi.object().keys({
-    movieId: Joi.string().hex().length(24).required(),
-  }),
-}), likeMovie);
-
-routerMovie.delete('/:movieId/likes', celebrate({
-  params: Joi.object().keys({
-    movieId: Joi.string().hex().length(24).required(),
-  }),
-}), dislikeMovie);
-*/
-
 routerMovie.delete('/:movieId', celebrate({
   params: Joi.object().keys({
     movieId: Joi.string().hex().length(24).required(),
